@@ -1,4 +1,6 @@
-Anh Bò - Chái Bò - Chó Bài
+---
+layout: post
+title: "Anh Bò - Chái Bò - Chó Bài"
 ---
 ## Sở thích cá meo
 Anh Bò thích nằm cạnh laptop khi tui làm việc
