@@ -11,7 +11,8 @@ title: "Do Thao Anh | Blog, my cat and the journey to a PhD"
 
 {% if post.image %}
 <img src="{{ post.image | relative_url }}"
-     style="max-width:100 %, height:auto;border-radius:10 px;">
+     alt="{{ post.title }}"
+     style="width:250 px; height:180 px; object-fit:cover; border-radius:10 px;">
 {% endif %}
 
 <h3>
