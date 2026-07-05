@@ -1,0 +1,14 @@
+---
+layout: default
+title: "Do Thao Anh | Blog, my cat and the journey to a PhD"
+---
+
+<h2>Nhật ký các em mèo</h2>
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <span> – {{ post.date | date: "%d/%m/%Y" }}</span>
+    </li>
+  {% endfor %}
+</ul>
