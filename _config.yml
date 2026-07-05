@@ -1,3 +1,5 @@
 theme: jekyll-theme-minimal
 title: Do Thao Anh
 description: Blog, my cat and the journey to a PhD
+url: "https://candacedocatdance.github.io"
+baseurl: "/Candace-Do"
