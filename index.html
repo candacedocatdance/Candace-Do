@@ -6,9 +6,22 @@ title: "Do Thao Anh | Blog, my cat and the journey to a PhD"
 <h2>Nhật ký các em mèo</h2>
 <ul>
   {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <span> – {{ post.date | date: "%d/%m/%Y" }}</span>
-    </li>
-  {% endfor %}
-</ul>
+
+<div style="margin-bottom:40 px;">
+
+{% if post.image %}
+<img src="{{ post.image | relative_url }}"
+     style="max-width:100 %, height:auto;border-radius:10 px;">
+{% endif %}
+
+<h3>
+<a href="{{ post.url | relative_url }}">
+{{ post.title }}
+</a>
+</h3>
+
+<p>{{ post.date | date: "%d/%m/%Y" }}</p>
+
+</div>
+
+{% endfor %}
