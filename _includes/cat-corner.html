@@ -5,7 +5,7 @@
   - "rip" và "avatar_position" KHÔNG hiển thị ở thẻ hồ sơ (post.html), chỉ dùng cho widget này.
   - Field tùy chọn "avatar_position: 'center 20%'" giúp chỉnh khung crop mặt nếu ảnh gốc lệch tâm.
 {% endcomment %}
-{% assign qualifying = site.posts | where_exp: "p", "p.image != nil and p.image != empty" %}
+{% assign qualifying = site.posts | where_exp: "p", "p.image" %}
 
 <div id="cat-corner-root" aria-hidden="true"></div>
 <button id="cat-corner-toggle" class="cat-corner-toggle-btn" type="button" title="Ẩn/hiện đàn mèo" aria-label="Ẩn hiện đàn mèo">🐾</button>
