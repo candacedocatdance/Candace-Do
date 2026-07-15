@@ -3,6 +3,9 @@ layout: post
 title: "Anh Bò - Chái Bò - Chó Bài"
 date: 2026-07-04
 image: /assets/images/chai-Bo.jpg
+role: "Anh Trai Thiên Thần"
+birthday: 
+hobby: "Làm anh"
 ---
 ## Sở thích cá meo
 Anh Bò thích nằm cạnh laptop khi tui làm việc
