@@ -4,25 +4,25 @@ title: "Do Thao Anh | Blog, my cats and the journey to a PhD"
 ---
 
 <h2>Nhật ký các em mèo</h2>
-
-<ul class="post-list">
+<ul>
   {% for post in site.posts %}
-    <li class="post-item">
-      
-      {% if post.image %}
-        <div class="img-container">
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
-        </div>
-      {% endif %}
 
-      <h3>
-        <a href="{{ post.url | relative_url }}">
-          {{ post.title }}
-        </a>
-      </h3>
+<div style="margin-bottom:40 px;">
 
-      <p class="post-date">📅 {{ post.date | date: "%d/%m/%Y" }}</p>
+{% if post.image %}
+<img src="{{ post.image | relative_url }}"
+     alt="{{ post.title }}"
+     style="width:125 px; height:90 px; object-fit:cover; border-radius:8 px;">
+{% endif %}
 
-    </li>
-  {% endfor %}
-</ul>
+<h3>
+<a href="{{ post.url | relative_url }}">
+{{ post.title }}
+</a>
+</h3>
+
+<p>{{ post.date | date: "%d/%m/%Y" }}</p>
+
+</div>
+
+{% endfor %}

@@ -2,13 +2,11 @@
 layout: default
 ---
 
-<article class="post-content-area">
+<article class="post">
   <h1>{{ page.title }}</h1>
   <p class="meta">
-    ✍️ Viết ngày {{ page.date | date: "%d/%m/%Y" }}
+    Viết ngày {{ page.date | date: "%d/%m/%Y" }}
   </p>
 
-  <div class="entry-content">
-    {{ content }}
-  </div>
+  {{ content }}
 </article>
