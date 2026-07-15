@@ -4,7 +4,7 @@ title: "Americano - Nhỏ Me - Chái Me - Amẻeeeee"
 date: 2026-07-03
 image: /assets/images/Ameeeee.jpg
 role: "Công Chúa Nhõng Nhẽo"
-birthday: 2023-03-17
+birthday: 
 hobby: "Nhõng nhẽo"
 ---
 ## Sở thích cá meo
