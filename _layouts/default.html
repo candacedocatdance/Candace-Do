@@ -4,19 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FBF4E8">
 
     {% seo %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
     {% include head-custom.html %}
+
+    <script>
+      // Bật class "js" ngay lập tức để CSS biết JS đang chạy.
+      // Nếu script này không chạy (JS tắt/bị chặn), nội dung .reveal
+      // vẫn hiển thị bình thường vì rule ẩn nằm trong .js .reveal.
+      document.documentElement.classList.add('js');
+    </script>
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1><a href="{{ "/" | absolute_url }}" style="text-decoration: none;">{{ site.title | default: site.github.repository_name }}</a></h1>
-
         {% if site.logo %}
-          <img src="{{site.logo | relative_url}}" alt="Logo" style="max-width: 120px; border-radius: 50%; margin: 15px auto; display: block;" />
+          <div class="site-logo-wrap">
+            <img src="{{ site.logo | relative_url }}" alt="Logo">
+          </div>
         {% endif %}
+
+        <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
@@ -36,11 +48,11 @@
         </ul>
         {% endif %}
       </header>
-      
+
       <section>
         {{ content }}
       </section>
-      
+
       <footer>
         {% if site.github.is_project_page %}
         <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
@@ -49,5 +61,24 @@
       </footer>
     </div>
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+    <script>
+      // Scroll-reveal nhẹ nhàng cho các phần tử .reveal (card bài viết, thẻ hồ sơ).
+      (function () {
+        if (!('IntersectionObserver' in window)) return;
+        var items = document.querySelectorAll('.reveal');
+        if (!items.length) return;
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        items.forEach(function (el) { observer.observe(el); });
+      })();
+    </script>
   </body>
 </html>

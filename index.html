@@ -5,10 +5,15 @@ title: "Do Thao Anh | Blog, my cats and the journey to a PhD"
 
 <h2>Nhật ký các em mèo 🐾</h2>
 
+{% if site.posts.size == 0 %}
+  <div class="post-list-empty">
+    Chưa có hồ sơ mèo nào cả — quay lại sau nhé! 🐾
+  </div>
+{% else %}
 <ul class="post-list">
   {% for post in site.posts %}
-    <li class="post-item" onclick="window.location='{{ post.url | relative_url }}';">
-      
+    <li class="post-item reveal" onclick="window.location='{{ post.url | relative_url }}';">
+
       {% if post.image %}
         <div class="img-container">
           <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
@@ -26,3 +31,4 @@ title: "Do Thao Anh | Blog, my cats and the journey to a PhD"
     </li>
   {% endfor %}
 </ul>
+{% endif %}
