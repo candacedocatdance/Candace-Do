@@ -9,67 +9,85 @@
   var rip = data.filter(function (c) { return c.rip; });
   var alive = data.filter(function (c) { return !c.rip; });
 
+  var FUR_COLORS = ['#E8A23D', '#E88D5D', '#C97B5A', '#D9A441', '#B98356'];
+
   function rand(min, max) { return Math.random() * (max - min) + min; }
-  function escapeAttr(str) {
-    return String(str).replace(/"/g, '&quot;');
-  }
+  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+  function esc(str) { return String(str).replace(/"/g, '&quot;'); }
 
   function buildSprite(cat, kind, index) {
     var holder = document.createElement('div');
     holder.className = 'cat-sprite';
-    holder.title = cat.title;
+    holder.title = cat.title + ' (click 3 lần để xem hồ sơ)';
 
-    // Vị trí "nhà" (home) của từng bé, tính offset âm từ góc phải-dưới màn hình.
+    // Vị trí "nhà" của từng bé, offset âm tính từ góc phải-dưới màn hình.
     var hx, hy;
     if (kind === 'astro') {
-      hx = -(46 + index * 50 + rand(-8, 8));
-      hy = -(160 + (index % 3) * 40 + rand(-10, 10));
+      hx = -(50 + index * 52 + rand(-8, 8));
+      hy = -(170 + (index % 3) * 42 + rand(-10, 10));
     } else {
-      hx = -(34 + index * 54 + rand(-8, 8));
-      hy = -(34 + rand(0, 16));
+      hx = -(40 + index * 58 + rand(-8, 8));
+      hy = -(36 + rand(0, 16));
     }
-
     holder.dataset.hx = hx;
     holder.dataset.hy = hy;
     holder.style.transform = 'translate(' + hx + 'px,' + hy + 'px)';
 
-    var idle = document.createElement('div');
-    idle.style.animationDelay = rand(0, 3).toFixed(2) + 's';
+    var wander = document.createElement('div');
+    wander.className = kind === 'astro' ? 'cs-wander astro' : 'cs-wander';
+    wander.style.setProperty('--wdur', (kind === 'astro' ? rand(5, 7) : rand(3, 4.4)).toFixed(2) + 's');
+    wander.style.setProperty('--wdelay', rand(0, 2.5).toFixed(2) + 's');
+
+    var limp = document.createElement('div');
+    limp.className = 'cs-limp';
 
     if (kind === 'astro') {
-      idle.className = 'sprite-idle astro-idle';
-      idle.style.animationDuration = rand(4.5, 6.5).toFixed(2) + 's';
-      idle.innerHTML =
+      limp.innerHTML =
         '<div class="suit">' +
-          '<div class="helmet"><img src="' + escapeAttr(cat.image) + '" alt="' + escapeAttr(cat.title) + '" style="object-position:' + escapeAttr(cat.avatarPosition) + '" loading="lazy"></div>' +
+          '<div class="helmet"><img src="' + esc(cat.image) + '" alt="' + esc(cat.title) + '" style="object-position:' + esc(cat.avatarPosition) + '" loading="lazy"></div>' +
           '<div class="body-suit"></div>' +
           '<span class="sparkle s1">✦</span><span class="sparkle s2">✦</span>' +
         '</div>';
     } else {
-      idle.className = 'sprite-idle runner-idle';
-      idle.style.animationDuration = rand(2.6, 3.6).toFixed(2) + 's';
-      idle.innerHTML =
-        '<div class="runner"><img src="' + escapeAttr(cat.image) + '" alt="' + escapeAttr(cat.title) + '" style="object-position:' + escapeAttr(cat.avatarPosition) + '" loading="lazy"></div>';
+      var fur = FUR_COLORS[index % FUR_COLORS.length];
+      limp.style.setProperty('--fur', fur);
+      limp.innerHTML =
+        '<div class="cat-runner">' +
+          '<div class="cat-tail"></div>' +
+          '<div class="cat-body"></div>' +
+          '<div class="cat-legs">' +
+            '<span class="leg leg1"></span><span class="leg leg2"></span>' +
+            '<span class="leg leg3"></span><span class="leg leg4"></span>' +
+          '</div>' +
+          '<div class="cat-head">' +
+            '<span class="ear ear-l"></span><span class="ear ear-r"></span>' +
+            '<img class="cat-face" src="' + esc(cat.image) + '" alt="' + esc(cat.title) + '" style="object-position:' + esc(cat.avatarPosition) + '" loading="lazy">' +
+          '</div>' +
+        '</div>';
     }
 
-    holder.appendChild(idle);
-    attachDrag(holder);
+    wander.appendChild(limp);
+    holder.appendChild(wander);
+    attachDrag(holder, limp, cat);
     return holder;
   }
 
   rip.forEach(function (cat, i) { root.appendChild(buildSprite(cat, 'astro', i)); });
   alive.forEach(function (cat, i) { root.appendChild(buildSprite(cat, 'runner', i)); });
 
-  function attachDrag(el) {
+  function attachDrag(el, limpEl, cat) {
     var dragging = false;
-    var startX = 0, startY = 0, baseX = 0, baseY = 0;
+    var startX = 0, startY = 0, baseX = 0, baseY = 0, lastX = 0, lastY = 0;
+    var moved = 0;
+    var clickCount = 0, clickTimer = null;
 
     el.addEventListener('pointerdown', function (e) {
       dragging = true;
+      moved = 0;
       el.classList.add('dragging');
       try { el.setPointerCapture(e.pointerId); } catch (err) {}
-      startX = e.clientX;
-      startY = e.clientY;
+      startX = lastX = e.clientX;
+      startY = lastY = e.clientY;
       var match = el.style.transform.match(/-?\d+\.?\d*/g) || [0, 0];
       baseX = parseFloat(match[0]) || 0;
       baseY = parseFloat(match[1]) || 0;
@@ -79,19 +97,40 @@
       if (!dragging) return;
       var dx = e.clientX - startX;
       var dy = e.clientY - startY;
+      moved += Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
+      lastX = e.clientX;
+      lastY = e.clientY;
       el.style.transform = 'translate(' + (baseX + dx) + 'px,' + (baseY + dy) + 'px)';
+
+      // hiệu ứng "sụi lơ" - thân đung đưa theo hướng kéo, như mèo thật bị xách lên
+      var swing = clamp(dx * 0.25, -26, 26);
+      limpEl.style.transform = 'rotate(' + swing + 'deg)';
     });
 
     function release() {
       if (!dragging) return;
       dragging = false;
       el.classList.remove('dragging');
+      limpEl.style.transform = 'rotate(0deg)';
       // Bò/bay từ từ về đúng chỗ cũ.
       el.style.transform = 'translate(' + el.dataset.hx + 'px,' + el.dataset.hy + 'px)';
     }
 
     el.addEventListener('pointerup', release);
     el.addEventListener('pointercancel', release);
+
+    // click 3 lần liên tiếp -> đi tới bài viết của bé đó
+    el.addEventListener('click', function () {
+      if (moved > 8) { moved = 0; return; }
+      clickCount++;
+      clearTimeout(clickTimer);
+      if (clickCount >= 3) {
+        clickCount = 0;
+        if (cat.url) window.location.href = cat.url;
+      } else {
+        clickTimer = setTimeout(function () { clickCount = 0; }, 550);
+      }
+    });
   }
 
   if (toggleBtn) {

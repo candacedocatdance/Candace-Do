@@ -1,20 +1,23 @@
 {% comment %}
   Widget "đàn mèo góc phải màn hình".
-  - Mèo có front matter "rip: true" -> hiện dạng phi hành gia bay lơ lửng phía trên.
-  - Mèo còn lại -> chạy nhảy phía dưới.
-  - "rip" và "avatar_position" KHÔNG hiển thị ở thẻ hồ sơ (post.html), chỉ dùng cho widget này.
-  - Field tùy chọn "avatar_position: 'center 20%'" giúp chỉnh khung crop mặt nếu ảnh gốc lệch tâm.
+  - Mèo có front matter "rip: true" -> phi hành gia bay lơ lửng phía trên.
+  - Mèo còn lại -> có thân, tai, đuôi, chân chạy loanh quanh phía dưới.
+  - "rip" và "avatar_position" KHÔNG hiển thị ở thẻ hồ sơ, chỉ dùng cho widget này.
+  - Field tùy chọn "avatar_position: 'center 20%'" chỉnh khung crop mặt nếu ảnh gốc lệch tâm.
+  - Toàn bộ CSS được nhúng thẳng trong <style> ở đây (không nằm trong style.scss) để không
+    bao giờ bị ảnh hưởng bởi cache trình duyệt/CDN của file style.css bên ngoài.
 {% endcomment %}
 {% assign qualifying = site.posts | where_exp: "p", "p.image" %}
 
 <div id="cat-corner-root" aria-hidden="true"></div>
-<button id="cat-corner-toggle" class="cat-corner-toggle-btn" type="button" title="Ẩn/hiện đàn mèo" aria-label="Ẩn hiện đàn mèo">🐾</button>
+<button id="cat-corner-toggle" type="button" title="Ẩn/hiện đàn mèo" aria-label="Ẩn hiện đàn mèo">🐾</button>
 
 <script>
   window.CAT_CORNER_DATA = [
     {% for post in qualifying %}
     {
       "title": {{ post.title | jsonify }},
+      "url": {{ post.url | relative_url | jsonify }},
       "image": {{ post.image | relative_url | jsonify }},
       "rip": {{ post.rip | default: false }},
       "avatarPosition": {{ post.avatar_position | default: "center 25%" | jsonify }}
@@ -22,4 +25,126 @@
     {% endfor %}
   ];
 </script>
+
+<style>
+  #cat-corner-root { position: fixed; inset: 0; pointer-events: none; z-index: 9998; transition: opacity .3s ease; }
+  #cat-corner-root.is-hidden { opacity: 0; }
+  #cat-corner-root.is-hidden .cat-sprite { pointer-events: none; }
+
+  #cat-corner-toggle {
+    position: fixed; right: 14px; bottom: 14px; z-index: 9999;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: #FFFEFB; border: 1px solid rgba(43,38,32,.16);
+    box-shadow: 0 4px 14px rgba(43,38,32,.16);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem; cursor: pointer; transition: transform .2s ease;
+  }
+  #cat-corner-toggle:hover { transform: scale(1.08); }
+
+  .cat-sprite {
+    position: fixed; right: 0; bottom: 0; pointer-events: auto;
+    touch-action: none; cursor: grab; z-index: 9998; user-select: none;
+    transition: transform 1.9s cubic-bezier(.22,1,.36,1);
+  }
+  .cat-sprite.dragging { transition: none; cursor: grabbing; z-index: 10000; }
+
+  .cs-wander { animation: wanderX var(--wdur, 3.6s) ease-in-out infinite; animation-delay: var(--wdelay, 0s); }
+  .cs-wander.astro { animation-name: wanderFloat; }
+  .cat-sprite.dragging .cs-wander { animation-play-state: paused; }
+
+  @keyframes wanderX {
+    0%, 100% { transform: translate(0,0); }
+    25%      { transform: translate(16px,-3px); }
+    50%      { transform: translate(30px,0); }
+    75%      { transform: translate(16px,-3px); }
+  }
+  @keyframes wanderFloat {
+    0%, 100% { transform: translate(0,0) rotate(-3deg); }
+    50%      { transform: translate(8px,-16px) rotate(3deg); }
+  }
+
+  .cs-limp { transition: transform .3s ease; transform: rotate(0deg); }
+
+  /* ===== mèo còn sống: thân + tai + đuôi + chân ===== */
+  .cat-runner { position: relative; width: 78px; height: 46px; }
+
+  .cat-body {
+    position: absolute; left: 16px; bottom: 8px; width: 44px; height: 22px;
+    background: var(--fur, #E8A23D); border-radius: 50% 50% 46% 46%;
+    box-shadow: inset 0 -4px 6px rgba(0,0,0,.08);
+  }
+  .cat-tail {
+    position: absolute; right: -4px; bottom: 14px; width: 24px; height: 7px;
+    background: var(--fur, #E8A23D); border-radius: 10px;
+    transform-origin: left center; animation: tailWag .55s ease-in-out infinite alternate;
+  }
+  .cat-sprite.dragging .cat-tail { animation-play-state: paused; transform: rotate(35deg); }
+  @keyframes tailWag {
+    from { transform: rotate(-12deg); }
+    to   { transform: rotate(18deg); }
+  }
+
+  .cat-head { position: absolute; left: 0; bottom: 10px; width: 32px; height: 32px; }
+  .cat-face {
+    width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    border: 2px solid #fff; box-shadow: 0 3px 8px rgba(43,38,32,.25); display: block;
+  }
+  .ear {
+    position: absolute; top: -7px; width: 0; height: 0;
+    border-left: 5px solid transparent; border-right: 5px solid transparent;
+    border-bottom: 9px solid var(--fur, #E8A23D);
+  }
+  .ear-l { left: 1px; transform: rotate(-18deg); }
+  .ear-r { right: 1px; transform: rotate(18deg); }
+
+  .cat-legs { position: absolute; left: 18px; bottom: 0; width: 40px; height: 12px; }
+  .cat-legs .leg {
+    position: absolute; bottom: 0; width: 6px; height: 11px;
+    background: var(--fur, #E8A23D); border-radius: 3px;
+  }
+  .leg1 { left: 0; animation: stepA .42s ease-in-out infinite; }
+  .leg2 { left: 11px; animation: stepB .42s ease-in-out infinite; }
+  .leg3 { left: 23px; animation: stepA .42s ease-in-out infinite; }
+  .leg4 { left: 34px; animation: stepB .42s ease-in-out infinite; }
+  @keyframes stepA { 0%,100% { transform: translateY(0) rotate(-10deg); } 50% { transform: translateY(-4px) rotate(10deg); } }
+  @keyframes stepB { 0%,100% { transform: translateY(-4px) rotate(10deg); } 50% { transform: translateY(0) rotate(-10deg); } }
+
+  .cat-sprite.dragging .leg { animation-play-state: paused !important; transform: translateY(5px) rotate(0deg) !important; }
+
+  /* ===== mèo đã mất: phi hành gia ===== */
+  .suit { width: 58px; text-align: center; filter: drop-shadow(0 5px 8px rgba(43,38,32,.22)); }
+  .helmet {
+    width: 48px; height: 48px; margin: 0 auto; border-radius: 50%;
+    border: 3px solid #fff; overflow: hidden; position: relative;
+    background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(180,200,255,.35));
+    box-shadow: 0 0 0 2px rgba(108,92,231,.3);
+  }
+  .helmet img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .helmet::after {
+    content: ""; position: absolute; top: 5px; left: 7px; width: 14px; height: 8px;
+    background: rgba(255,255,255,.75); border-radius: 50%; filter: blur(2px);
+  }
+  .body-suit {
+    width: 34px; height: 22px; background: #fff; border-radius: 10px 10px 16px 16px;
+    margin: -4px auto 0; box-shadow: 0 2px 5px rgba(43,38,32,.2); position: relative;
+  }
+  .body-suit::before, .body-suit::after {
+    content: ""; position: absolute; top: -2px; width: 5px; height: 10px;
+    background: #E8A23D; border-radius: 2px;
+  }
+  .body-suit::before { left: 5px; }
+  .body-suit::after { right: 5px; }
+  .sparkle { position: absolute; color: #E8A23D; font-size: 10px; animation: twinkle 1.8s ease-in-out infinite; }
+  .s1 { top: -6px; left: -6px; }
+  .s2 { top: 8px; right: -10px; animation-delay: .6s; }
+  @keyframes twinkle { 0%,100% { opacity: .25; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.15); } }
+
+  @media (max-width: 600px) {
+    #cat-corner-toggle { right: 10px; bottom: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-wander, .cat-tail, .leg, .sparkle { animation: none !important; }
+  }
+</style>
+
 <script src="{{ '/assets/js/cat-corner.js' | relative_url }}" defer></script>
