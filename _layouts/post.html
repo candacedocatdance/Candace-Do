@@ -27,7 +27,24 @@ layout: default
     </div>
     <div class="meta-item">
       <span class="label">Tuổi Đời</span>
-      <span class="value">{{ page.age | default: "Đang Cập Nhật" }}</span>
+      <span class="value">
+        {% if page.age %}
+          {{ page.age }}
+        {% elsif page.birthday %}
+          {% assign birth_ts = page.birthday | date: "%s" | plus: 0 %}
+          {% assign now_ts = "now" | date: "%s" | plus: 0 %}
+          {% assign age_seconds = now_ts | minus: birth_ts %}
+          {% assign age_years = age_seconds | divided_by: 31556952 %}
+          {% if age_years >= 1 %}
+            {{ age_years }} tuổi
+          {% else %}
+            {% assign age_months = age_seconds | divided_by: 2629746 %}
+            {{ age_months }} tháng tuổi
+          {% endif %}
+        {% else %}
+          Đang Cập Nhật
+        {% endif %}
+      </span>
     </div>
     <div class="meta-item">
       <span class="label">Sở Thích Kỹ Năng</span>
