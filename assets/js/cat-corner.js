@@ -203,13 +203,13 @@
     function positionNearAvatar() {
       var rect = avatarEl.getBoundingClientRect();
 
-      var desiredRight = Math.min(rect.right + spriteWidth + 14, window.innerWidth - 10);
+      var desiredRight = Math.max(rect.left - 14, spriteWidth + 10);
       var desiredBottom = Math.min(Math.max(rect.bottom - 4, 70), window.innerHeight - 10);
       var tx = desiredRight - window.innerWidth;
       var ty = desiredBottom - window.innerHeight;
       el.style.transform = 'translate(' + tx + 'px,' + ty + 'px)';
 
-      pointer.style.left = (rect.right + 4) + 'px';
+      pointer.style.left = (rect.left - 26) + 'px';
       pointer.style.top = (rect.top + rect.height / 2 - 14) + 'px';
     }
     positionNearAvatar();
