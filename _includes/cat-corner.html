@@ -145,6 +145,38 @@
   .s2 { top: 8px; right: -10px; animation-delay: .6s; }
   @keyframes twinkle { 0%,100% { opacity: .25; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.15); } }
 
+  .cat-sprite.greeting { z-index: 10000; }
+
+  .cat-speech-bubble {
+    position: absolute; bottom: 100%; left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    background: #fff; color: #2B2620;
+    padding: 6px 12px; border-radius: 14px;
+    font-size: 0.78rem; font-weight: 700; white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(43,38,32,.22);
+    animation: bubblePop .3s ease;
+  }
+  .cat-speech-bubble::after {
+    content: ""; position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: #fff;
+  }
+  .cat-speech-bubble.fade-out { opacity: 0; transition: opacity .4s ease; }
+  @keyframes bubblePop {
+    0%   { transform: translateX(-50%) translateY(4px) scale(.8); opacity: 0; }
+    100% { transform: translateX(-50%) translateY(-6px) scale(1); opacity: 1; }
+  }
+
+  .cat-self-pointer {
+    position: fixed; z-index: 9999; font-size: 1.4rem;
+    animation: pointerBounce .6s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  @keyframes pointerBounce {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-8px); }
+  }
+
   @media (max-width: 600px) {
     #cat-corner-toggle { right: 10px; bottom: 10px; }
   }

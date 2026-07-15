@@ -2,12 +2,17 @@
 layout: default
 ---
 
+<script>
+  // Cho widget đàn mèo biết đang xem trang cá nhân của bé nào (so khớp qua url).
+  window.CAT_CORNER_SELF_URL = {{ page.url | relative_url | jsonify }};
+</script>
+
 <a href="{{ '/' | relative_url }}" class="btn-back-home">← Quay lại danh sách</a>
 
 <article class="post-content-area reveal">
 
   <div class="cat-cv-header">
-    <div class="cat-cv-avatar">
+    <div class="cat-cv-avatar" id="cat-self-avatar">
       {% if page.image %}
         <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
       {% else %}

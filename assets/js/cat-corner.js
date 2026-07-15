@@ -72,8 +72,17 @@
     return holder;
   }
 
-  rip.forEach(function (cat, i) { root.appendChild(buildSprite(cat, 'astro', i)); });
-  alive.forEach(function (cat, i) { root.appendChild(buildSprite(cat, 'runner', i)); });
+  var spriteEntries = [];
+  rip.forEach(function (cat, i) {
+    var el = buildSprite(cat, 'astro', i);
+    root.appendChild(el);
+    spriteEntries.push({ cat: cat, el: el });
+  });
+  alive.forEach(function (cat, i) {
+    var el = buildSprite(cat, 'runner', i);
+    root.appendChild(el);
+    spriteEntries.push({ cat: cat, el: el });
+  });
 
   function attachDrag(el, limpEl, cat) {
     var dragging = false;
@@ -135,6 +144,93 @@
       }
     });
   }
+
+  var GREET_PHRASES = [
+    'Tui đó tui đó meooooo~',
+    'Đúng chuẩn tui nè, không lộn đâu!',
+    'Ngầu chưa, đó là tui á 😼',
+    'Ê nhìn kỹ đi, tui nè tui nè!',
+    'Chính chủ xuất hiện nè~',
+    'Xinh vậy đó, là tui luôn á!',
+    'Meooo~ hồ sơ của tui nè!'
+  ];
+
+  function throttleRaf(fn) {
+    var ticking = false;
+    return function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { fn(); ticking = false; });
+    };
+  }
+
+  function initSelfGreeting() {
+    var selfUrl = window.CAT_CORNER_SELF_URL;
+    if (!selfUrl) return;
+
+    var entry = null;
+    for (var i = 0; i < spriteEntries.length; i++) {
+      if (spriteEntries[i].cat.url === selfUrl) { entry = spriteEntries[i]; break; }
+    }
+    if (!entry) return;
+
+    var avatarEl = document.getElementById('cat-self-avatar');
+    if (!avatarEl) return;
+
+    setTimeout(function () { runGreeting(entry, avatarEl); }, 700);
+  }
+
+  function runGreeting(entry, avatarEl) {
+    var el = entry.el;
+    var wanderEl = el.querySelector('.cs-wander');
+    var phrase = GREET_PHRASES[Math.floor(Math.random() * GREET_PHRASES.length)];
+
+    el.classList.add('greeting');
+    if (wanderEl) wanderEl.style.animationPlayState = 'paused';
+
+    var bubble = document.createElement('div');
+    bubble.className = 'cat-speech-bubble';
+    bubble.textContent = phrase;
+    el.appendChild(bubble);
+
+    var pointer = document.createElement('div');
+    pointer.className = 'cat-self-pointer';
+    pointer.textContent = '👉';
+    document.body.appendChild(pointer);
+
+    var spriteWidth = el.getBoundingClientRect().width || 60;
+
+    function positionNearAvatar() {
+      var rect = avatarEl.getBoundingClientRect();
+
+      var desiredRight = Math.min(rect.right + spriteWidth + 14, window.innerWidth - 10);
+      var desiredBottom = Math.min(Math.max(rect.bottom - 4, 70), window.innerHeight - 10);
+      var tx = desiredRight - window.innerWidth;
+      var ty = desiredBottom - window.innerHeight;
+      el.style.transform = 'translate(' + tx + 'px,' + ty + 'px)';
+
+      pointer.style.left = (rect.right + 4) + 'px';
+      pointer.style.top = (rect.top + rect.height / 2 - 14) + 'px';
+    }
+    positionNearAvatar();
+
+    var onScroll = throttleRaf(positionNearAvatar);
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll);
+
+    setTimeout(function () {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      pointer.remove();
+      bubble.classList.add('fade-out');
+      setTimeout(function () { bubble.remove(); }, 400);
+      el.classList.remove('greeting');
+      if (wanderEl) wanderEl.style.animationPlayState = '';
+      el.style.transform = 'translate(' + el.dataset.hx + 'px,' + el.dataset.hy + 'px)';
+    }, 4800);
+  }
+
+  initSelfGreeting();
 
   if (toggleBtn) {
     var hidden = false;
