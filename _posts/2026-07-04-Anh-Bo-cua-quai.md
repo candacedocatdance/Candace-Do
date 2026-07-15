@@ -4,7 +4,7 @@ title: "Anh Bò - Chái Bò - Chó Bài"
 date: 2026-07-04
 image: /assets/images/chai-Bo.jpg
 role: "Anh Trai Thiên Thần"
-birthday: 2023-03-03
+birthday:
 hobby: "Làm anh"
 ---
 ## Sở thích cá meo
