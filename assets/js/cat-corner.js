@@ -17,7 +17,7 @@
 
   function buildSprite(cat, kind, index) {
     var holder = document.createElement('div');
-    holder.className = 'cat-sprite';
+    holder.className = 'cat-sprite ' + (kind === 'astro' ? 'kind-astro' : 'kind-runner');
     holder.title = cat.title + ' (click 3 lần để xem hồ sơ)';
 
     // Vị trí "nhà" của từng bé, offset âm tính từ góc phải-dưới màn hình.
@@ -112,6 +112,9 @@
       dragging = false;
       el.classList.remove('dragging');
       limpEl.style.transform = 'rotate(0deg)';
+      // Ép trình duyệt chốt lại trạng thái "hết kéo" trước khi đổi vị trí,
+      // nếu không 2 thay đổi sẽ bị gộp làm một và mất hẳn hiệu ứng chuyển động mượt.
+      void el.offsetWidth;
       // Bò/bay từ từ về đúng chỗ cũ.
       el.style.transform = 'translate(' + el.dataset.hx + 'px,' + el.dataset.hy + 'px)';
     }

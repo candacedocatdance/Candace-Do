@@ -44,9 +44,10 @@
   .cat-sprite {
     position: fixed; right: 0; bottom: 0; pointer-events: auto;
     touch-action: none; cursor: grab; z-index: 9998; user-select: none;
-    transition: transform 1.9s cubic-bezier(.22,1,.36,1);
   }
-  .cat-sprite.dragging { transition: none; cursor: grabbing; z-index: 10000; }
+  .cat-sprite.kind-runner { transition: transform 1.4s cubic-bezier(.34,1.56,.64,1); }
+  .cat-sprite.kind-astro { transition: transform 2.6s ease-in-out; }
+  .cat-sprite.dragging { transition: none !important; cursor: grabbing; z-index: 10000; }
 
   .cs-wander { animation: wanderX var(--wdur, 3.6s) ease-in-out infinite; animation-delay: var(--wdelay, 0s); }
   .cs-wander.astro { animation-name: wanderFloat; }
@@ -141,9 +142,6 @@
 
   @media (max-width: 600px) {
     #cat-corner-toggle { right: 10px; bottom: 10px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .cs-wander, .cat-tail, .leg, .sparkle { animation: none !important; }
   }
 </style>
 
