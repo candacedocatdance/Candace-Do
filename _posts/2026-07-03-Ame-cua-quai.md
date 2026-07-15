@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "Americano - Nhỏ Me - Chái Me - Amẻeeeee"
-date: 2026-07-03
+title: Americano - Nhỏ Me - Chái Me - Amẻeeeee
+date: 2026-07-03T00:00:00.000Z
 image: /assets/images/Ameeeee.jpg
-role: "Công Chúa Nhõng Nhẽo"
-birthday: 
-hobby: "Nhõng nhẽo"
+role: Công Chúa Nhõng Nhẽo
+birthday: 2023-03-17T00:00:00.000Z
+hobby: Nằm sát laptop canh Sen làm việc & trốn trong mền ngủ
+rip: false
 ---
+
 ## Sở thích cá meo
 
 Thích được kêu là Amẻeeeeeeeeeeeeeee
