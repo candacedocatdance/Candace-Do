@@ -54,14 +54,19 @@
   .cat-sprite.dragging .cs-wander { animation-play-state: paused; }
 
   @keyframes wanderX {
-    0%, 100% { transform: translate(0,0); }
-    25%      { transform: translate(16px,-3px); }
-    50%      { transform: translate(30px,0); }
-    75%      { transform: translate(16px,-3px); }
+    0%   { transform: translate(0,0); }
+    20%  { transform: translate(34px,-10px); }
+    40%  { transform: translate(58px,4px); }
+    60%  { transform: translate(34px,-10px); }
+    80%  { transform: translate(-14px,6px); }
+    100% { transform: translate(0,0); }
   }
   @keyframes wanderFloat {
-    0%, 100% { transform: translate(0,0) rotate(-3deg); }
-    50%      { transform: translate(8px,-16px) rotate(3deg); }
+    0%   { transform: translate(0,0) rotate(-7deg); }
+    25%  { transform: translate(10px,-30px) rotate(3deg); }
+    50%  { transform: translate(-6px,-46px) rotate(-4deg); }
+    75%  { transform: translate(-14px,-22px) rotate(6deg); }
+    100% { transform: translate(0,0) rotate(-7deg); }
   }
 
   .cs-limp { transition: transform .3s ease; transform: rotate(0deg); }

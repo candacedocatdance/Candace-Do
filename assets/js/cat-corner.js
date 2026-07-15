@@ -35,7 +35,7 @@
 
     var wander = document.createElement('div');
     wander.className = kind === 'astro' ? 'cs-wander astro' : 'cs-wander';
-    wander.style.setProperty('--wdur', (kind === 'astro' ? rand(5, 7) : rand(3, 4.4)).toFixed(2) + 's');
+    wander.style.setProperty('--wdur', (kind === 'astro' ? rand(3.2, 4.2) : rand(4.2, 5.6)).toFixed(2) + 's');
     wander.style.setProperty('--wdelay', rand(0, 2.5).toFixed(2) + 's');
 
     var limp = document.createElement('div');
