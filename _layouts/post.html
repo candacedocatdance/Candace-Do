@@ -2,19 +2,10 @@
 layout: default
 ---
 
-<a href="{{ '/' | relative_url }}" class="back-btn">
-  ← Trở về Nhật ký
-</a>
-
 <article class="post-content-area">
-  
-  {% if page.image %}
-    <img class="post-hero-img" src="{{ page.image | relative_url }}" alt="{{ page.title }}">
-  {% endif %}
-
   <h1>{{ page.title }}</h1>
   <p class="meta">
-    ✍️ Ghi chép vào ngày {{ page.date | date: "%d/%m/%Y" }}
+    ✍️ Viết ngày {{ page.date | date: "%d/%m/%Y" }}
   </p>
 
   <div class="entry-content">

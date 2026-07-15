@@ -3,26 +3,25 @@ layout: default
 title: "Do Thao Anh | Blog, my cats and the journey to a PhD"
 ---
 
-<h2>Nhật ký các em mèo 🐾</h2>
+<h2>Nhật ký các em mèo</h2>
 
 <ul class="post-list">
   {% for post in site.posts %}
-    <li class="post-item" onclick="window.location='{{ post.url | relative_url }}';">
+    <li class="post-item">
       
       {% if post.image %}
         <div class="img-container">
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
         </div>
       {% endif %}
 
-      <div class="card-body">
-        <h3>
-          <a href="{{ post.url | relative_url }}">
-            {{ post.title }}
-          </a>
-        </h3>
-        <p class="post-date">📅 {{ post.date | date: "%d/%m/%Y" }}</p>
-      </div>
+      <h3>
+        <a href="{{ post.url | relative_url }}">
+          {{ post.title }}
+        </a>
+      </h3>
+
+      <p class="post-date">📅 {{ post.date | date: "%d/%m/%Y" }}</p>
 
     </li>
   {% endfor %}
