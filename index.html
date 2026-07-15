@@ -5,23 +5,32 @@ title: "Do Thao Anh | Blog, my cats and the journey to a PhD"
 
 <h2>Nhật ký các em mèo 🐾</h2>
 
-<ul class="post-list">
+<!-- Thanh điều hướng tab giả lập tăng tính trải nghiệm UX -->
+<ul class="filter-tabs">
+  <li class="tab-item active">Tất Cả Thành Viên</li>
+  <li class="tab-item">Mèo Nhà</li>
+  <li class="tab-item">Nhật Ký PhD</li>
+</ul>
+
+<!-- Layout cuộn dọc dạng Grid thông minh thay cho cuộn ngang lỗi thời -->
+<ul class="post-grid">
   {% for post in site.posts %}
-    <li class="post-item" onclick="window.location='{{ post.url | relative_url }}';">
+    <li class="cat-card-item" onclick="window.location='{{ post.url | relative_url }}';">
       
       {% if post.image %}
-        <div class="img-container">
+        <div class="card-img-wrap">
           <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
         </div>
       {% endif %}
 
-      <div class="card-body">
+      <div class="card-info">
+        <span class="card-tag">Cat Profile</span>
         <h3>
           <a href="{{ post.url | relative_url }}">
             {{ post.title }}
           </a>
         </h3>
-        <p class="post-date">📅 {{ post.date | date: "%d/%m/%Y" }}</p>
+        <p class="card-meta">📅 {{ post.date | date: "%d/%m/%Y" }}</p>
       </div>
 
     </li>
