@@ -1,385 +1,190 @@
 ---
-# Front matter trống để Jekyll compile tự động
+# Cần giữ 2 dòng front matter này để Jekyll compile SCSS thành CSS
 ---
 
-// ==========================================================================
-// ĐẠI TRÙNG TU TOÀN DIỆN - PROFILE CV MÈO & 3D INTERACTIVE GRID
-// ==========================================================================
-
+// Reset cơ bản để tránh tràn viền
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-body {
-  min-height: 100vh;
-  background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
-  background-size: 400% 400%;
-  animation: gradientBG 18s ease infinite;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: #1e293b;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-// Chuyển động xuất hiện mượt mà
-@keyframes superFadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.98);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.wrapper {
-  max-width: 1140px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 50px 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 40px;
-  animation: superFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-
-  h1 a {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 900;
-    font-size: 2.8rem;
-    text-decoration: none;
-    letter-spacing: -1px;
-  }
-
-  p {
-    margin-top: 12px;
-    color: #475569;
-    font-size: 1.1rem;
-    font-weight: 500;
-  }
-}
-
-// THANH PHÂN LOẠI UX XỊN XÒ
-.filter-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 35px;
-  list-style: none;
-  animation: superFadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-
-  .tab-item {
-    padding: 8px 18px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #4f46e5;
-    cursor: pointer;
-    transition: all 0.3s;
-
-    &:hover, &.active {
-      background: #4f46e5;
-      color: #fff;
-      box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
-      transform: translateY(-2px);
-    }
-  }
-}
-
-// BẢN TRÙNG TU 1: Đổi sang layout dọc dạng Lưới Grid thông minh (Pinterest/Card Grid)
-.post-grid {
+// 1. PHONG CÁCH HIỆN ĐẠI CHO TRANG CHỦ (Thay thế hoàn toàn kiểu kéo ngang)
+.cat-grid-modern {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 20px 0;
   list-style: none;
-  margin-bottom: 60px;
-  animation: superFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
 
-// Thiết kế Thẻ Mèo 3D Độc Đáo ở trang chủ
-.cat-card-item {
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 28px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 10px 30px rgba(31, 38, 135, 0.05);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-
-  .card-img-wrap {
-    width: 100%;
-    height: 240px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .card-info {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    z-index: 2;
-  }
-
-  h3 {
-    font-size: 1.35rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    
-    a {
-      text-decoration: none;
-      color: #0f172a;
-      transition: color 0.3s;
-    }
-  }
-
-  .card-tag {
-    display: inline-block;
-    align-self: flex-start;
-    padding: 4px 10px;
-    background: rgba(79, 70, 229, 0.1);
-    color: #4f46e5;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .card-meta {
-    margin-top: auto;
-    font-size: 0.85rem;
-    color: #64748b;
-    font-weight: 600;
-  }
-
-  // Tương tác hover UX nâng cấp
-  &:hover {
-    transform: translateY(-12px) scale(1.01);
+  .cat-card {
     background: rgba(255, 255, 255, 0.6);
-    border-color: rgba(79, 70, 229, 0.4);
-    box-shadow: 0 30px 50px rgba(79, 70, 229, 0.15), 
-                0 0 30px rgba(219, 39, 119, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 
-    img {
-      transform: scale(1.08);
-    }
-    
-    h3 a {
-      color: #4f46e5;
-    }
-  }
-}
-
-// BẢN TRÙNG TU 2: THIẾT KẾ LAYOUT LÀM MỘT CV ĐÍNH KÈM CHO MÈO (CAT CV DASHBOARD)
-.cat-cv-container {
-  max-width: 900px;
-  margin: 10px auto 50px auto;
-  width: 100%;
-  animation: superFadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cat-profile-dashboard {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border-radius: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.06);
-  padding: 40px;
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 40px;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 25px;
-    gap: 30px;
-  }
-
-  // Cột trái: Ảnh thẻ ID của mèo
-  .cv-left-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .cat-avatar-frame {
-      width: 100%;
-      height: 340px;
-      border-radius: 24px;
-      overflow: hidden;
-      border: 4px solid #fff;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+      background: rgba(255, 255, 255, 0.8);
+      
+      .cat-card-img img {
+        transform: scale(1.05);
+      }
+      h3 a {
+        color: #667eea;
       }
     }
+  }
 
-    .cv-badge {
-      padding: 6px 16px;
-      background: linear-gradient(45deg, #4f46e5, #7c3aed);
-      color: white;
-      font-weight: 700;
-      font-size: 0.85rem;
-      border-radius: 50px;
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+  .cat-card-img {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
     }
   }
 
-  // Cột phải: Thông tin CV chi tiết
-  .cv-right-panel {
-    display: flex;
-    flex-direction: column;
+  .cat-card-info {
+    padding: 20px;
+    
+    h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.2rem;
+      
+      a {
+        text-decoration: none;
+        color: #333;
+        transition: color 0.2s;
+      }
+    }
+    
+    p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #888;
+    }
+  }
+}
 
-    .cat-name-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 5px;
-      background: linear-gradient(45deg, #0f172a, #4f46e5);
+// 2. THIẾT KẾ Y NHƯ 1 PROFILE CV CHO MÈO (Trang chi tiết - Đã sửa lỗi ảnh quá to)
+.cat-cv-wrapper {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 30px;
+  margin-top: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.cat-cv-header {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  border-bottom: 2px dashed rgba(102, 126, 234, 0.3);
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  // Khống chế kích thước ảnh đại diện CV không bị quá lớn
+  .cat-cv-avatar {
+    width: 160px;
+    height: 160px;
+    min-width: 160px; // Không cho co nhỏ
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .cat-cv-title-block {
+    h1 {
+      margin: 0 0 5px 0;
+      font-size: 2rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    .cat-subtitle {
-      font-size: 1.05rem;
-      color: #64748b;
-      font-weight: 600;
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    // Bảng thông số CV của Mèo
-    .cv-data-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 30px;
-      background: rgba(255, 255, 255, 0.3);
-      padding: 20px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-
-      @media (max-width: 480px) {
-        grid-template-columns: 1fr;
-      }
-
-      .data-item {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-
-        span.label {
-          font-size: 0.8rem;
-          color: #64748b;
-          font-weight: 700;
-          text-transform: uppercase;
-        }
-        span.val {
-          font-size: 1.05rem;
-          color: #1e293b;
-          font-weight: 600;
-        }
-      }
-    }
-
-    // Phần nội dung tự sự/nhật ký của mèo
-    .cv-biography {
-      h4 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #0f172a;
-        margin-bottom: 12px;
-        border-left: 4px solid #4f46e5;
-        padding-left: 10px;
-      }
-
-      .bio-content {
-        line-height: 1.8;
-        font-size: 1.05rem;
-        color: #334155;
-        
-        p { margin-bottom: 15px; }
-      }
+    .subtitle {
+      font-size: 1rem;
+      color: #667eea;
+      font-weight: bold;
+      margin: 0;
     }
   }
 }
 
-// Nút Back Button tinh tế
-.back-home-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 50px;
-  color: #4f46e5;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.95rem;
+// Bảng thông tin ứng viên mèo
+.cat-cv-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 20px;
+  border-radius: 16px;
   margin-bottom: 25px;
-  transition: all 0.3s;
-  
-  &:hover {
-    background: #4f46e5;
-    color: #fff;
-    transform: translateX(-5px);
-    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.25);
+
+  .info-group {
+    display: flex;
+    flex-direction: column;
+    
+    .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #999;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+    .value {
+      font-size: 1rem;
+      color: #333;
+      font-weight: 600;
+    }
   }
 }
 
-footer, .footer {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  text-align: center;
-  padding: 25px;
-  margin-top: auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px 20px 0 0;
-  color: #334155;
-  
-  a {
-    color: #4f46e5;
-    text-decoration: none;
-    font-weight: 600;
+.cat-cv-body {
+  h3 {
+    border-left: 4px solid #764ba2;
+    padding-left: 10px;
+    color: #444;
+    margin-bottom: 15px;
+  }
+  .content {
+    line-height: 1.7;
+    color: #4a5568;
+  }
+}
+
+.btn-back {
+  display: inline-block;
+  margin-bottom: 15px;
+  text-decoration: none;
+  color: #667eea;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+  &:hover {
+    transform: translateX(-3px);
   }
 }
