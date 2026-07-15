@@ -3,6 +3,9 @@ layout: post
 title: "Trứng - Chó Trứng hemmmm - Trái Trứng"
 date: 2026-07-04
 image: /assets/images/cho-Trung-hemmm.jpg
+role: "Thiết bị phát tín hiệu ăng ăng ăng"
+birthday:
+hobby: "Làm con một"
 ---
 ## Sở thích cá meo
 Ăng ăng ăng
