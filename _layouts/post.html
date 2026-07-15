@@ -2,44 +2,62 @@
 layout: default
 ---
 
-<a href="{{ '/' | relative_url }}" class="btn-back">← Quay lại danh sách</a>
-
-<article class="cat-cv-wrapper">
+<div class="cat-cv-container">
   
-  <div class="cat-cv-header">
-    <div class="cat-cv-avatar">
-      {% if page.image %}
-        <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
-      {% else %}
-        <div style="width:100%; height:100%; background:#e2e8f0;"></div>
-      {% endif %}
-    </div>
-    <div class="cat-cv-title-block">
-      <h1>{{ page.title }}</h1>
-      <p class="subtitle">{{ page.role | default: "Hoàng Thượng Toàn Thời Gian" }}</p>
-    </div>
-  </div>
+  <!-- Nút quay về trang chủ mượt mà -->
+  <a href="{{ '/' | relative_url }}" class="back-home-btn">
+    ⚡ Trở Về Danh Sách
+  </a>
 
-  <div class="cat-cv-details">
-    <div class="info-group">
-      <span class="label">Tuổi đời</span>
-      <span class="value">{{ page.age | default: "Chưa cập nhật" }}</span>
+  <!-- BẢN TRÙNG TU CỦA TRANG CHI TIẾT: DASHBOARD CV MÈO CHUYÊN NGHIỆP -->
+  <div class="cat-profile-dashboard">
+    
+    <!-- Cột bên trái: Ảnh căn cước / Avatar của Mèo -->
+    <div class="cv-left-panel">
+      <div class="cat-avatar-frame">
+        {% if page.image %}
+          <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+        {% else %}
+          <!-- Fallback nếu không có ảnh -->
+          <div style="width:100%; height:100%; background:#e2e8f0; display:flex; align-items:center; justify-content:center; color:#94a3b8;">No Photo</div>
+        {% endif %}
+      </div>
+      <span class="cv-badge">Verified Boss ✔️</span>
     </div>
-    <div class="info-group">
-      <span class="label">Sở thích</span>
-      <span class="value">{{ page.hobby | default: "Ăn, ngủ & quậy phá" }}</span>
-    </div>
-    <div class="info-group">
-      <span class="label">Kinh nghiệm</span>
-      <span class="value">{{ page.experience | default: "Báo đời chuyên nghiệp" }}</span>
-    </div>
-  </div>
 
-  <div class="cat-cv-body">
-    <h3>Tiểu sử & Nhật ký chi tiết</h3>
-    <div class="content">
-      {{ content }}
-    </div>
-  </div>
+    <!-- Cột bên phải: Thông tin CV & Lý lịch trích ngang -->
+    <div class="cv-right-panel">
+      <h1 class="cat-name-title">{{ page.title }}</h1>
+      <p class="cat-subtitle">🐾 Hồ sơ lưu trữ ngày: {{ page.date | date: "%d/%m/%Y" }}</p>
 
-</article>
+      <!-- Bảng thông số kỹ thuật (CV Mèo) -->
+      <div class="cv-data-grid">
+        <div class="data-item">
+          <span class="label">Chức Vụ</span>
+          <span class="val">{{ page.role | default: "Quản Đốc Tinh Thần" }}</span>
+        </div>
+        <div class="data-item">
+          <span class="label">Tuổi Đời</span>
+          <span class="val">{{ page.age | default: "Đang Cập Nhật" }}</span>
+        </div>
+        <div class="data-item">
+          <span class="label">Sở Thích</span>
+          <span class="val">{{ page.hobby | default: "Ăn & Hét Vào Mặt Sen" }}</span>
+        </div>
+        <div class="data-item">
+          <span class="label">Trạng Thái</span>
+          <span class="val" style="color: #10b981; font-weight: bold;">Đang Báo Đời 🟢</span>
+        </div>
+      </div>
+
+      <!-- Nội dung nhật ký chi tiết chiêu mộ -->
+      <div class="cv-biography">
+        <h4>Lý Lịch & Nhật Ký Chi Tiết</h4>
+        <div class="bio-content">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
