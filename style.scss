@@ -2,10 +2,6 @@
 # Front matter trống ở đây để Jekyll tự động compile SCSS thành CSS
 ---
 
-// ==========================================================================
-// SCSS LUNG LINH CHO LANDING PAGE MÈO
-// ==========================================================================
-
 * {
   box-sizing: border-box;
 }
@@ -27,7 +23,6 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-// Cấu trúc Wrapper cho layout cân đối
 .wrapper {
   max-width: 1200px;
   width: 100%;
@@ -38,7 +33,6 @@ body {
   min-height: 100vh;
 }
 
-// Style cho Tiêu đề
 h1, h2, .title, [class*="title"] {
   background: linear-gradient(45deg, #667eea, #764ba2);
   -webkit-background-clip: text;
@@ -48,52 +42,41 @@ h1, h2, .title, [class*="title"] {
   margin-bottom: 20px;
 }
 
-// Hàng ngang chứa bài viết/mèo
-.cat-container, .post-list {
-  display: flex;
+// BẢN SỬA ĐỔI 1: Thay đổi hoàn toàn từ kéo ngang (overflow-x) sang Modern Vertical Grid
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
-  overflow-x: auto;
-  padding: 30px 10px;
-  scroll-behavior: smooth;
+  padding: 20px 0;
   list-style: none;
+  margin: 0;
 
-  // Custom thanh cuộn ngang siêu mượt bằng SCSS nesting
-  &::-webkit-scrollbar {
-    height: 8px;
-    &-track { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
-    &-thumb { 
-      background: linear-gradient(45deg, #667eea, #a1c4fd);
-      border-radius: 10px;
-    }
-  }
-
-  // Effect hiệu ứng kính mờ và hover phát sáng cho các card bài viết
   .post-item {
-    flex: 0 0 280px; /* Định hình kích thước cố định cho mỗi item khi cuộn ngang */
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+    cursor: pointer;
 
     .img-container {
       width: 100%;
-      height: 160px;
+      height: 180px;
       overflow: hidden;
       border-radius: 14px;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
     }
 
     h3 {
@@ -101,9 +84,8 @@ h1, h2, .title, [class*="title"] {
       font-size: 1.2rem;
       a {
         text-decoration: none;
-        color: #4a5568;
+        color: #334155;
         transition: color 0.3s;
-        &:hover { color: #667eea; }
       }
     }
 
@@ -115,22 +97,24 @@ h1, h2, .title, [class*="title"] {
     }
 
     &:hover {
-      transform: translateY(-12px) scale(1.02);
-      background: rgba(255, 255, 255, 0.55);
-      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.25), 
-                  0 0 25px rgba(161, 196, 253, 0.4);
-      border-color: rgba(102, 126, 234, 0.5);
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.65);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+      border-color: rgba(102, 126, 234, 0.4);
 
       img {
-        transform: scale(1.08); // Phóng to ảnh mượt mà khi hover vào card
+        transform: scale(1.05);
+      }
+      h3 a {
+        color: #667eea;
       }
     }
   }
 }
 
-// Nội dung bài viết chi tiết
+// BẢN SỬA ĐỔI 2: Thiết kế lại trang Post theo phong cách Profile CV của mèo
 .post-content-area {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 24px;
@@ -139,25 +123,127 @@ h1, h2, .title, [class*="title"] {
   border: 1px solid rgba(255, 255, 255, 0.6);
   margin-top: 20px;
 
-  .meta {
-    text-align: center;
-    color: #718096;
-    font-style: italic;
+  // Header của bản CV: chứa avatar và thông tin tiêu đề
+  .cat-cv-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 2px dashed rgba(102, 126, 234, 0.2);
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    // KHỐNG CHẾ KÍCH THƯỚC ẢNH MÈO CỦA BẠN KHÔNG BỊ QUÁ LỚN
+    .cat-cv-avatar {
+      width: 140px;
+      height: 140px;
+      min-width: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .cat-cv-info-title {
+      h1 {
+        text-align: left;
+        margin: 0 0 5px 0;
+        font-size: 2.2rem;
+        
+        @media (max-width: 600px) {
+          text-align: center;
+        }
+      }
+      .meta {
+        text-align: left;
+        margin: 0;
+        color: #667eea;
+        font-weight: 600;
+        font-size: 0.95rem;
+
+        @media (max-width: 600px) {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  // Bảng thông số kỹ thuật (CV Details block)
+  .cat-cv-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 20px;
+    border-radius: 16px;
     margin-bottom: 30px;
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      .label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #94a3b8;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .value {
+        font-size: 1rem;
+        color: #334155;
+        font-weight: 600;
+      }
+    }
+  }
+
+  // Nội dung chi tiết bài viết nằm bên dưới
+  .entry-content {
+    line-height: 1.8;
+    color: #4a5568;
+    font-size: 1.05rem;
+
+    h2, h3 {
+      text-align: left;
+      background: none;
+      -webkit-text-fill-color: initial;
+      color: #1e293b;
+      margin-top: 25px;
+    }
+  }
+}
+
+.btn-back-home {
+  display: inline-block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #667eea;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+  &:hover {
+    transform: translateX(-3px);
   }
 }
 
 header {
   text-align: center;
   margin-bottom: 40px;
-  
   p {
     color: #4a5568;
     font-size: 1.1rem;
   }
 }
 
-// Footer thông tin chủ sở hữu
 footer, .footer {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(8px);
@@ -167,7 +253,6 @@ footer, .footer {
   margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
-  
   p {
     margin: 5px 0;
     color: #4a5568;
