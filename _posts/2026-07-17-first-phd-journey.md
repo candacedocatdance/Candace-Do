@@ -1,7 +1,10 @@
 ---
 layout: post
+
 title: "The first step toward my PhD"
-date: 
+
+date: 2026-07-17
+
 category: phd
 
 image: /assets/images/TO-2026_Interview_Mentor_Dr. Son.jpg
