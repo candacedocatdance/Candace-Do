@@ -14,8 +14,9 @@ Today I officially started recording my PhD journey on this blog.
 
 ## A golden opportunity
 
-From: 2026-05-13
+From: 2026-05-13 
 To: 2026-07-17
+
 That is The Cất Cánh Fellowship 2026 from the VISEMI Foundation.
 
 I have the opportunity to meet Vietnamese scientists from all over the world who are supporting my dream.
