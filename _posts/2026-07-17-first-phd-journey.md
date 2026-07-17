@@ -4,6 +4,7 @@ title: "The first step toward my PhD"
 date: 2026-07-17
 category: phd
 image: /assets/images/i have no idea.jpg
+rip: false
 ---
 
 Today I officially started recording my PhD journey on this blog.
