@@ -1,13 +1,9 @@
 ---
 layout: post
-
 title: "The first step toward my PhD"
-
 date: 2026-07-17
-
 category: phd
-
-image: /assets/images/TO-2026_Interview_Mentor_Dr. Son.jpg
+image: /assets/images/i have no idea.jpg
 ---
 
 Today I officially started recording my PhD journey on this blog.
