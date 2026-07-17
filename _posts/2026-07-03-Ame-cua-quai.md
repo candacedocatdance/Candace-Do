@@ -1,4 +1,4 @@
----
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4f1f9dd4-9c37-43e2-a4b1-153c5a6bd900" />---
 layout: post
 title: Americano - Nhỏ Me - Chái Me - Amẻeeeee
 date: 2026-07-03T00:00:00.000Z
@@ -7,6 +7,7 @@ role: Công Chúa Nhõng Nhẽo
 birthday: 2023-03-17T00:00:00.000Z
 hobby: Nằm sát laptop canh Sen làm việc & trốn trong mền ngủ
 rip: false
+category: cat
 ---
 
 ## Sở thích cá meo
