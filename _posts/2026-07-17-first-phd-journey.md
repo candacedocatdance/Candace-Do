@@ -12,7 +12,7 @@ Today I officially started recording my PhD journey on this blog.
 
 From: 2026-05-13
 
-To: 2026-07-17
+To: In progress
 
 That is The Cất Cánh Fellowship 2026 from the VISEMI Foundation.
 
