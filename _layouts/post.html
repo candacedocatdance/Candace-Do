@@ -24,7 +24,7 @@ layout: default
       <p class="meta">📋 Hồ sơ lập ngày: {{ page.date | date: "%d/%m/%Y" }}</p>
     </div>
   </div>
-
+{% if page.category == "cat" %}
   <div class="cat-cv-meta-grid">
     <div class="meta-item">
       <span class="label">Chức Vụ</span>
