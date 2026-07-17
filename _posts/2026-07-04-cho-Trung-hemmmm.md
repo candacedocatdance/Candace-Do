@@ -7,6 +7,7 @@ role: Thiết bị phát tín hiệu ăng ăng ăng
 birthday: null
 hobby: Làm con một
 rip: false
+category: cat
 ---
 
 ## Sở thích cá meo
