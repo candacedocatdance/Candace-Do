@@ -7,6 +7,7 @@ role: Anh Trai Thiên Thần
 birthday: null
 hobby: Làm anh
 rip: true
+category: cat
 ---
 
 ## Sở thích cá meo
