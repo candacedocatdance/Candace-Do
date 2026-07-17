@@ -6,7 +6,7 @@ image: /assets/images/Ameeeee.jpg
 role: Công Chúa Nhõng Nhẽo
 birthday: 2023-03-17
 hobby: Nằm sát laptop canh Sen làm việc & trốn trong mền ngủ
-rip: true
+rip: false
 category: cat
 ---
 
