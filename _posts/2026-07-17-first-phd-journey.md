@@ -22,5 +22,5 @@ They gave me financial support and provided me with invaluable professional netw
 
 This time has been a real eye-opener. It has fueled my motivation.
 
-After the meeting sections with VISEMI team, Ambassador team and Make Big Change team, I am now more determined than ever to achieve my "U.S. dream." :D 
+After the meeting sections with VISEMI team, Ambassador team and Make Big Change team, I am now more determined than ever to achieve my dream :D 
 
