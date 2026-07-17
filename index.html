@@ -2,6 +2,53 @@
 layout: default
 title: "Do Thao Anh | Blog, my cats and the journey to a PhD"
 ---
+<h2> PhD Journey loading.... 🎓</h2>
+
+{% assign phd_posts = site.posts | where:"category","phd" %}
+
+{% if phd_posts.size == 0 %}
+
+<div class="post-list-empty">
+    Chưa có bài viết nào về hành trình PhD 🚀
+</div>
+
+{% else %}
+
+<ul class="post-list">
+
+{% for post in phd_posts %}
+
+<li class="post-item reveal"
+    onclick="window.location='{{ post.url | relative_url }}';">
+
+    {% if post.image %}
+    <div class="img-container">
+        <img src="{{ post.image | relative_url }}"
+             alt="{{ post.title }}"
+             loading="lazy">
+    </div>
+    {% endif %}
+
+    <h3>
+
+        <a href="{{ post.url | relative_url }}">
+            {{ post.title }}
+        </a>
+
+    </h3>
+
+    <p class="post-date">
+        📅 {{ post.date | date: "%d/%m/%Y" }}
+    </p>
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+{% endif %}
+
 
 <h2>Nhật ký các em mèo 🐾</h2>
 
@@ -11,7 +58,11 @@ title: "Do Thao Anh | Blog, my cats and the journey to a PhD"
   </div>
 {% else %}
 <ul class="post-list">
-  {% for post in site.posts %}
+  
+{% assign cat_posts = site.posts | where:"category","cat" %}
+  
+{% for post in cat_posts %}
+  
     <li class="post-item reveal" onclick="window.location='{{ post.url | relative_url }}';">
 
       {% if post.image %}
